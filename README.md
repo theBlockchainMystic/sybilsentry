@@ -1,5 +1,6 @@
 # SybilSentry
 the configuration for app
+
 All values are present in config.json
 
 "lookback_days": (int.) The no.of days from today we need to look back for past transaction of a given wallet (by deafult 30)
