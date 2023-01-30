@@ -13,6 +13,7 @@ The vote_only function calculates the ratio of the number of voting transactions
 The pipe function returns a JSON response indicating if the address is a Sybil address or not. If all transactions from an address are for voting operations, the response will be {"Sybil":"True"}, otherwise, it will be {"Sybil":"False"}.
 
 The code uses the Etherscan API to obtain Ethereum transactions, and the requests library to make HTTP requests to the API. The Etherscan API requires an API key, which is stored in a config.json file. The pandas library is used to store and manipulate the transaction data.
+
 --------------
 
 the configuration for app
