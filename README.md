@@ -14,6 +14,8 @@ The pipe function returns a JSON response indicating if the address is a Sybil a
 
 The code uses the Etherscan API to obtain Ethereum transactions, and the requests library to make HTTP requests to the API. The Etherscan API requires an API key, which is stored in a config.json file. The pandas library is used to store and manipulate the transaction data.
 
+## Sybil detection
+
 ![Sybil](https://github.com/theBlockchainMystic/sybilsentry/blob/main/Sybil.png "sybil")
 --------------
 
