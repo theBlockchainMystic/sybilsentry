@@ -76,10 +76,13 @@ def vote_only(start_block_num,end_block_num,source_wallets):
     else:
         return []
 
-@app.route('/sybil',methods=['POST'])
+@app.route('/sybilsentry',methods=['POST'])
 def pipe():
     inp_json = request.json
-    source_wallets = inp_json['wallet id']
+    if isinstance(inp_json['wallet id'], list):
+        source_wallets = inp_json['wallet id']
+    elif isinstance(inp_json['wallet id'], str):
+        source_wallets = [inp_json['wallet id']]
     ## Wallet check
     present = datetime.now()
     window = timedelta(days=lookback_days) # Add how many days to lookback
@@ -89,10 +92,17 @@ def pipe():
     start_block_num = get_block(start_epoch)
     end_block_num = get_block(end_epoch)
     votes_only = vote_only(start_block_num,end_block_num,source_wallets)
-    if source_wallets in votes_only:
-        return jsonify({"Sybil":"True"})
-    else:
-        return jsonify({"Sybil":"False"})
+    result = {'result':[]}
+    if len(source_wallets)==1:
+        if source_wallets in votes_only:
+            return jsonify({"Sybil":"True"})
+        else:
+            return jsonify({"Sybil":"False"})
+    
+    elif len(source_wallets)>1:
+        for j in source_wallets:
+            result['result'].append({'wallet id':str(j),'Sybil':'True' if j in votes_only else 'False'})
+        return jsonify(result)
 
 if __name__ == '__main__':
     app.run(debug=True)
